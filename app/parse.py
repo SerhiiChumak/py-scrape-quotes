@@ -85,15 +85,19 @@ def get_each_page_quotes() -> list[Quote]:
     return all_quotes
 
 
-def write_quotes_to_csv(quotes: [Quote]) -> None:
-    with open("result.csv", "w", encoding="utf-8", newline="") as f:
+def write_quotes_to_csv(
+        quotes: list[Quote],
+        output_path: str
+) -> None:
+    with open(output_path, "w", encoding="utf-8", newline="") as f:
         writer = csv.writer(f)
         writer.writerow(PRODUCT_FIELDS)
         writer.writerows([astuple(quote) for quote in quotes])
 
 
 def main(output_csv_path: str) -> None:
-    write_quotes_to_csv(get_each_page_quotes())
+    quotes = get_each_page_quotes()
+    write_quotes_to_csv(quotes, output_csv_path)
 
 
 if __name__ == "__main__":
